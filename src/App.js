@@ -1,4 +1,4 @@
-ed import React, { useContext } from 'react';
+import React, { useContext } from 'react';
 import './mobile-reset.css';
 import './App.css';
 import './mobile-optimizations.css';
