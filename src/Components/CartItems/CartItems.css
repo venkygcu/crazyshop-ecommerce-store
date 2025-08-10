@@ -1,0 +1,240 @@
+/* Cart Items Container */
+.cartitems {
+    margin: 100px 170px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Horizontal Divider */
+.cartitems hr {
+    height: 3px;
+    background: #e2e2e2;
+    border: 0;
+    margin: 20px 0;
+}
+
+/* Cart Items Header */
+.cartitems-format-main {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 75px;
+    padding: 20px 0;
+    color: #454545;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+/* Cart Items Row */
+.cartitems-format {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 75px;
+    padding: 20px 0;
+    font-size: 17px;
+    font-weight: 500;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Product Icon */
+.carticon-product-icon {
+    height: 62px;
+    width: 62px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Remove Icon */
+.cartitems-remove-icon {
+    width: 15px;
+    height: 15px;
+    margin: 0 40px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.cartitems-remove-icon:hover {
+    opacity: 0.7;
+}
+
+/* Quantity Input */
+.cartitems-quantity {
+    width: 64px;
+    height: 50px;
+    border: 2px solid #ebebeb;
+    background: #fff;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 4px;
+    outline: none;
+}
+
+.cartitems-quantity:focus {
+    border-color: #ff5a5a;
+}
+
+/* Bottom Section */
+.cartitems-down {
+    display: flex;
+    margin: 100px 0;
+    gap: 200px;
+}
+
+/* Cart Totals Section */
+.cartitems-total {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 400px;
+}
+
+.cartitems-total h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Total Items */
+.cartitems-total-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+}
+
+.cartitems-total-item:last-child {
+    border-bottom: 2px solid #333;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Checkout Button */
+.cartitems-total button {
+    width: 100%;
+    max-width: 262px;
+    height: 58px;
+    outline: none;
+    border: none;
+    background: #ff5a5a;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cartitems-total button:hover {
+    background: #e04848;
+}
+
+/* Promo Code Section */
+.cartitems-promocode {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.cartitems-promocode p {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* Promo Code Input Box */
+.cartitems-promobox {
+    display: flex;
+    width: 100%;
+    max-width: 504px;
+    margin-top: 10px;
+    height: 58px;
+    background: #eaeaea;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cartitems-promobox input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    height: 100%;
+    padding: 0 20px;
+    color: #333;
+}
+
+.cartitems-promobox input::placeholder {
+    color: #999;
+}
+
+/* Promo Code Submit Button */
+.cartitems-promobox button {
+    width: 170px;
+    height: 58px;
+    font-size: 16px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.cartitems-promobox button:hover {
+    background: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .cartitems {
+        margin: 50px 20px;
+    }
+    
+    .cartitems-format-main,
+    .cartitems-format {
+        gap: 20px;
+        grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+    }
+    
+    .cartitems-down {
+        flex-direction: column;
+        gap: 50px;
+    }
+    
+    .cartitems-promobox {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .cartitems-format-main,
+    .cartitems-format {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .cartitems-remove-icon {
+        margin: 10px auto;
+    }
+    
+    .cartitems-promobox {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .cartitems-promobox input,
+    .cartitems-promobox button {
+        height: 50px;
+    }
+}
+

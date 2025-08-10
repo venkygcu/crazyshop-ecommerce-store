@@ -1,0 +1,121 @@
+.offers {
+    width: 65%;
+    height: 60vh;
+    display: flex;
+    margin: auto;
+    padding: 0px 140px;
+    margin-bottom: 150px;
+    background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
+}
+.offers-left{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.offers-left h1{
+    color: #171717;
+    font-size: 80px;
+    font-weight: 600;
+}
+.offers-left p{
+    color: #171717;
+    font-size: 20px;
+    font-weight: 600;
+}
+.offers-left button{
+    width: 280px;
+    height: 50px;
+    border-radius: 35px;
+    background-color: #ff4141;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+}
+.offers-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.offers-right img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 1366px) {
+    .offers {
+        width: 80%;
+        padding: 0px 80px;
+    }
+    
+    .offers-left h1 {
+        font-size: clamp(50px, 6vw, 80px);
+    }
+    
+    .offers-left p {
+        font-size: clamp(16px, 2vw, 20px);
+    }
+    
+    .offers-left button {
+        width: clamp(220px, 25vw, 280px);
+        font-size: clamp(20px, 3vw, 30px);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .offers {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+        padding: 40px 20px;
+        text-align: center;
+    }
+    
+    .offers-left {
+        order: 2;
+    }
+    
+    .offers-right {
+        order: 1;
+        justify-content: center;
+        padding-top: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .offers-left h1 {
+        font-size: clamp(40px, 8vw, 60px);
+    }
+    
+    .offers-left button {
+        margin: 20px auto 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .offers {
+        padding: 20px 15px;
+        margin-bottom: 80px;
+    }
+    
+    .offers-left h1 {
+        font-size: clamp(30px, 10vw, 45px);
+    }
+    
+    .offers-left p {
+        font-size: clamp(14px, 4vw, 18px);
+    }
+    
+    .offers-left button {
+        width: clamp(180px, 80vw, 220px);
+        height: 45px;
+        font-size: clamp(16px, 5vw, 20px);
+    }
+}
