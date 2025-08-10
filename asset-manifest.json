@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/eshwar-ecommerce-store/static/css/main.1ca02867.css",
+    "main.css": "/eshwar-ecommerce-store/static/css/main.bc6cd550.css",
     "main.js": "/eshwar-ecommerce-store/static/js/main.0df59885.js",
     "static/media/banner_kids.png": "/eshwar-ecommerce-store/static/media/banner_kids.fff815a581793a7380fb.png",
     "static/media/banner_women.png": "/eshwar-ecommerce-store/static/media/banner_women.5a27fc4e4533e57e4676.png",
@@ -45,11 +45,11 @@
     "static/media/product_35.png": "/eshwar-ecommerce-store/static/media/product_35.073b8b5de77cfc979821.png",
     "static/media/hand_icon.png": "/eshwar-ecommerce-store/static/media/hand_icon.9c7487cecb600f30901b.png",
     "index.html": "/eshwar-ecommerce-store/index.html",
-    "main.1ca02867.css.map": "/eshwar-ecommerce-store/static/css/main.1ca02867.css.map",
+    "main.bc6cd550.css.map": "/eshwar-ecommerce-store/static/css/main.bc6cd550.css.map",
     "main.0df59885.js.map": "/eshwar-ecommerce-store/static/js/main.0df59885.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ca02867.css",
+    "static/css/main.bc6cd550.css",
     "static/js/main.0df59885.js"
   ]
 }
