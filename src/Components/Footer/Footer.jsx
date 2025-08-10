@@ -14,10 +14,10 @@ const Footer = () => {
         <p>Eshwar's E-commerce</p>
         </div>
         <ul className="footer-links">
-            <li>Company</li>
-            <li>Products</li>
-            <li>offers</li>
-            <li>About</li>
+contac            <li><Link to='/company' style={{ textDecoration: 'none', color: 'inherit' }}>Company</Link></li>
+            <li><Link to='/products' style={{ textDecoration: 'none', color: 'inherit' }}>Products</Link></li>
+            <li><Link to='/offers' style={{ textDecoration: 'none', color: 'inherit' }}>offers</Link></li>
+            <li><Link to='/about' style={{ textDecoration: 'none', color: 'inherit' }}>About</Link></li>
             <li><Link to='/contact' style={{ textDecoration: 'none', color: 'inherit' }}>Contact</Link></li>
         </ul>
         <div className="footer-socials-icons">
