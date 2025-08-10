@@ -24,6 +24,7 @@ const LoginSignup = () => {
       if (ENABLE_MOCK) {
         await new Promise(res => setTimeout(res, 500));
         localStorage.setItem('authToken', 'mock-signup-token');
+        window.dispatchEvent(new Event('auth-changed'));
         setSuccess('Signup successful. Redirecting...');
         navigate('/');
         return;
@@ -35,6 +36,7 @@ const LoginSignup = () => {
       });
       const token = res?.data?.token;
       if (token) localStorage.setItem('authToken', token);
+      window.dispatchEvent(new Event('auth-changed'));
       setSuccess('Signup successful. Redirecting...');
       navigate('/');
     } catch (err) {
@@ -54,6 +56,7 @@ const LoginSignup = () => {
       if (ENABLE_MOCK) {
         await new Promise(res => setTimeout(res, 500));
         localStorage.setItem('authToken', 'mock-login-token');
+        window.dispatchEvent(new Event('auth-changed'));
         setSuccess('Login successful. Redirecting...');
         navigate('/');
         return;
@@ -64,6 +67,7 @@ const LoginSignup = () => {
       });
       const token = res?.data?.token;
       if (token) localStorage.setItem('authToken', token);
+      window.dispatchEvent(new Event('auth-changed'));
       setSuccess('Login successful. Redirecting...');
       navigate('/');
     } catch (err) {

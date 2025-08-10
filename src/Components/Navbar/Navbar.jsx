@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './Navbar.css'
 import logo from '../Assets/logo.png'
 import cart_icon from '../Assets/cart_icon.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../Context/ShopContext'
 
 const Navbar = () => {
@@ -10,6 +10,20 @@ const Navbar = () => {
   const [menu,setMenu] = useState("Shop");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const {getTotalCartItems}= useContext(ShopContext);
+  const navigate = useNavigate();
+  const [isAuthed, setIsAuthed] = useState(!!localStorage.getItem('authToken'));
+
+  useEffect(() => {
+    const handler = () => setIsAuthed(!!localStorage.getItem('authToken'));
+    window.addEventListener('auth-changed', handler);
+    return () => window.removeEventListener('auth-changed', handler);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setIsAuthed(false);
+    navigate('/login');
+  };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -42,7 +56,11 @@ const Navbar = () => {
       </ul>
       
       <div className="nav-login-cart">
-        <Link to='/login'><button>Login</button></Link>
+        {isAuthed ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <Link to='/login'><button>Login</button></Link>
+        )}
         <Link to='/cart'><img src={cart_icon} alt="" /></Link>
         <div className="nav-cart-count">{getTotalCartItems()}</div>
       </div>

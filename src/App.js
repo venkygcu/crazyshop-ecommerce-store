@@ -14,6 +14,7 @@ import Footer from './Components/Footer/Footer';
 import men_banner from './Components/Assets/banner_mens.png';
 import women_banner from './Components/Assets/banner_women.png';
 import kid_banner from './Components/Assets/banner_kids.png';
+import Contact from './Pages/Contact';
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
                         <Route path='/product/:productId' element={<Product />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/login' element={<LoginSignup />} />
+            <Route path='/contact' element={<Contact />} />
           </Routes>
         </main>
         <Footer/>

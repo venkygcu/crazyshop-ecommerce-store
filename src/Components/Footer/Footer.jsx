@@ -4,6 +4,7 @@ import    footer_logo from '../Assets/logo.png'; // Adjust the path as necessary
 import instagram_icon from '../Assets/instagram_icon.png'; // Adjust the path as necessary
 import pintester_icon from '../Assets/pintester_icon.png'; // Adjust the path as necessary
 import whattsapp_icon from '../Assets/whatsapp_icon.png'; // Adjust the path as necessary
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -17,7 +18,7 @@ const Footer = () => {
             <li>Products</li>
             <li>offers</li>
             <li>About</li>
-            <li>Contact</li>
+            <li><Link to='/contact' style={{ textDecoration: 'none', color: 'inherit' }}>Contact</Link></li>
         </ul>
         <div className="footer-socials-icons">
             <div className="footer-icons-containers">
