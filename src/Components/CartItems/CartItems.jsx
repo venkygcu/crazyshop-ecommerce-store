@@ -2,10 +2,14 @@ import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../Context/ShopContext';
 import remove_icon from '../Assets/cart_cross_icon.png';
+import { useNavigate } from 'react-router-dom';
 
 
 const CartItems = () => {
   const { getTotalCartAmount,all_products, cartItems, removeFromCart } = useContext(ShopContext);
+  const navigate = useNavigate();
+
+  const formatINR = (value) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(Number(value || 0));
 
   return (
     <div className="cartitems">
@@ -30,11 +34,11 @@ const CartItems = () => {
                   className="carticon-product-icon"
                 />
                 <p>{e.name}</p>
-                <p>${e.new_price}</p>
+                <p>{formatINR(e.new_price)}</p>
                 <button className="cartitems-quantity">
                   {cartItems[e.id]}
                 </button>
-                <p>${e.new_price * cartItems[e.id]}</p>
+                <p>{formatINR(e.new_price * cartItems[e.id])}</p>
                 <img className='cartitems-remove-icon'
                   src={remove_icon}
                   onClick={() => removeFromCart(e.id)}
@@ -55,7 +59,7 @@ const CartItems = () => {
           <div>
             <div className="cartitems-total-item">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>{formatINR(getTotalCartAmount())}</p>
             </div>
             <hr />
             <div className="cartitems-total-item">
@@ -65,10 +69,10 @@ const CartItems = () => {
             <hr />
             <div className="cartitems-total-item">
               <h3>Total</h3>
-              <h3>${getTotalCartAmount()}</h3>
+              <h3>{formatINR(getTotalCartAmount())}</h3>
             </div>
           </div>
-          <button>PROCEED TO CHECKOUT</button>
+          <button onClick={() => navigate('/checkout')}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cartitems-promocode">
           <p>If you have a promo code,Enter Here</p>

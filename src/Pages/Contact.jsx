@@ -36,6 +36,11 @@ const Contact = () => {
   return (
     <div className="contact-page" style={{ maxWidth: 640, margin: '40px auto', padding: 20 }}>
       <h1>Contact Support</h1>
+      <div style={{ margin: '12px 0 24px', padding: 12, background: '#f7f7f7', borderRadius: 6 }}>
+        <p style={{ margin: '4px 0' }}>Call: <a href="tel:9986573492">9986573492</a></p>
+        <p style={{ margin: '4px 0' }}>Email: <a href="mailto:gunjivenkatesh072@gmail.com">gunjivenkatesh072@gmail.com</a></p>
+        <p style={{ margin: '4px 0', fontSize: 12, color: '#666' }}>We typically respond within 24 hours.</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <input type="text" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} required />

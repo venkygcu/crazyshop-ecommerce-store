@@ -12,9 +12,16 @@ const Navbar = () => {
   const {getTotalCartItems}= useContext(ShopContext);
   const navigate = useNavigate();
   const [isAuthed, setIsAuthed] = useState(!!localStorage.getItem('authToken'));
+  const [authUser, setAuthUser] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('authUser') || 'null'); } catch { return null; }
+  });
+  const isAdmin = authUser?.email === 'gunjivenkatesh072@gmail.com';
 
   useEffect(() => {
-    const handler = () => setIsAuthed(!!localStorage.getItem('authToken'));
+    const handler = () => {
+      setIsAuthed(!!localStorage.getItem('authToken'));
+      try { setAuthUser(JSON.parse(localStorage.getItem('authUser') || 'null')); } catch { setAuthUser(null); }
+    };
     window.addEventListener('auth-changed', handler);
     return () => window.removeEventListener('auth-changed', handler);
   }, []);
@@ -53,6 +60,7 @@ const Navbar = () => {
         <li onClick={()=>{handleMenuClick("mens")}}><Link style={{ textDecoration: 'none'}} to='/mens'>Men</Link>{menu==="mens"?<hr/>:<></>}</li>
         <li onClick={()=>{handleMenuClick("womens")}}><Link style={{ textDecoration: 'none'}} to='/womens'>Women</Link>{menu==="womens"?<hr/>:<></>}</li>
         <li onClick={()=>{handleMenuClick("kids")}}><Link  style={{ textDecoration: 'none'}} to='/kids'>Kids</Link>{menu==="kids"?<hr/>:<></>}</li>
+        {isAdmin && <li onClick={()=>{handleMenuClick("admin")}}><Link style={{ textDecoration: 'none'}} to='/admin'>Admin</Link>{menu==="admin"?<hr/>:<></>}</li>}
       </ul>
       
       <div className="nav-login-cart">

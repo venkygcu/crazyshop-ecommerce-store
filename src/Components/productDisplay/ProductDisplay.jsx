@@ -7,6 +7,7 @@ import { ShopContext } from '../../Context/ShopContext';
 const ProductDisplay = (props) => {
     const { product } = props;
 const {addToCart} = useContext(ShopContext);
+    const formatINR = (value) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(Number(value || 0));
     return (
         <div className="productdisplay">
             <div className="productdisplay-left">
@@ -32,8 +33,8 @@ const {addToCart} = useContext(ShopContext);
                     <p>(122)</p>
                 </div>
                 <div className="productdisplay-right-price">
-                    <div className="productdisplay-right-price-old">${product.old_price} </div>
-                    <div className="productdisplay-right-price-new">${product.new_price}</div>
+                    <div className="productdisplay-right-price-old">{formatINR(product.old_price)} </div>
+                    <div className="productdisplay-right-price-new">{formatINR(product.new_price)}</div>
                 </div>
                 <div className="productdisplay-right-description">
                     A lightweight,usually knitted, pullover dhirt, close-fitting, a round neckline and short sleeves, worn as an undershirtor outer garment

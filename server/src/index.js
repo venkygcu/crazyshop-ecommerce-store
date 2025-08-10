@@ -36,6 +36,16 @@ db.serialize(() => {
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 
+  db.run(`CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    image TEXT NOT NULL,
+    new_price REAL NOT NULL,
+    old_price REAL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+
   db.run(`CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -48,6 +58,26 @@ db.serialize(() => {
 // Helpers
 function signToken(user) {
   return jwt.sign({ id: user.id, email: user.email, username: user.username }, JWT_SECRET, { expiresIn: '7d' });
+}
+
+// Auth middleware
+function auth(req, res, next) {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+  if (!token) return res.status(401).json({ message: 'Unauthorized' });
+  try {
+    req.user = jwt.verify(token, JWT_SECRET);
+    next();
+  } catch {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+}
+
+function onlyAdmin(req, res, next) {
+  if (req.user?.email !== 'gunjivenkatesh072@gmail.com') {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+  next();
 }
 
 // Routes
@@ -83,6 +113,24 @@ app.post('/api/v1/auth/login', (req, res) => {
   });
 });
 
+// Products
+app.post('/api/v1/products', auth, onlyAdmin, (req, res) => {
+  const { name, category, image, new_price, old_price } = req.body;
+  if (!name || !category || !image || typeof new_price !== 'number') return res.status(400).json({ message: 'Missing fields' });
+  const stmt = db.prepare('INSERT INTO products (name, category, image, new_price, old_price) VALUES (?, ?, ?, ?, ?)');
+  stmt.run([name, category, image, new_price, old_price || null], function (err) {
+    if (err) return res.status(500).json({ message: 'Failed to add product' });
+    return res.status(201).json({ id: this.lastID });
+  });
+});
+
+app.get('/api/v1/products', (req, res) => {
+  db.all('SELECT * FROM products ORDER BY created_at DESC', (err, rows) => {
+    if (err) return res.status(500).json({ message: 'Failed to load products' });
+    return res.json(rows || []);
+  });
+});
+
 app.post('/api/v1/support/contact', (req, res) => {
   const { name, email, message } = req.body;
   if (!name || !email || !message) return res.status(400).json({ message: 'Missing fields' });
@@ -90,6 +138,13 @@ app.post('/api/v1/support/contact', (req, res) => {
   stmt.run([name, email, message], function (err) {
     if (err) return res.status(500).json({ message: 'Failed to save message' });
     return res.status(201).json({ id: this.lastID });
+  });
+});
+
+app.get('/api/v1/support/messages', auth, onlyAdmin, (req, res) => {
+  db.all('SELECT * FROM messages ORDER BY created_at DESC', (err, rows) => {
+    if (err) return res.status(500).json({ message: 'Failed to load messages' });
+    return res.json(rows || []);
   });
 });
 
