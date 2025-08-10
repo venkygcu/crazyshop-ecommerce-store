@@ -11,13 +11,16 @@ const Product = () => {
   const { productId } = useParams();
   const product = all_products.find((e) => e.id === Number(productId));
 
+  if (!product) {
+    return <div style={{ padding: 20 }}>Product not found.</div>;
+  }
+
   return (
     <div>
       <Breadcrum product={product} />
-      {/* You can add more product details below */}
-      <ProductDisplay product={product}/>
-      <DiscriptionBox/>
-      <RelatedProducts/>
+      <ProductDisplay product={product} />
+      <DiscriptionBox />
+      <RelatedProducts />
     </div>
   );
 };

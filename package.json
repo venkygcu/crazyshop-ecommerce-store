@@ -7,20 +7,30 @@
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.8.0",
+    "axios": "^1.7.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "homepage": "https://venkygcu.github.io/eshwar-ecommerce-store",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env PORT=3001 react-scripts start",
+    "start:dev": "cross-env NODE_ENV=development PORT=3001 react-scripts start",
+    "start:prod": "cross-env NODE_ENV=production PORT=3001 react-scripts start",
     "build": "react-scripts build",
+    "build:dev": "cross-env NODE_ENV=development react-scripts build",
+    "build:prod": "cross-env NODE_ENV=production react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "serve": "serve -s build -l 3001",
+    "docker:build": "docker build -t eshwar-ecommerce-store .",
+    "docker:run": "docker run -p 3001:3001 eshwar-ecommerce-store",
+    "docker:dev": "docker-compose up --build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +49,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "cross-env": "^7.0.3",
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }

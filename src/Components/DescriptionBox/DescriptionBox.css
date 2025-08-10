@@ -3,6 +3,84 @@
     max-width: 1200px;
     padding: 0 20px;
 }
+
+/* Mobile Responsive Design */
+@media screen and (max-width: 768px) {
+    .descriptionbox {
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+    
+    .descriptionbox-navigator {
+        flex-wrap: wrap;
+    }
+    
+    .descriptionbox-nav-box {
+        flex: 1;
+        min-width: 120px;
+        width: auto;
+        height: 50px;
+        font-size: 14px;
+    }
+    
+    .descriptionbox-description {
+        padding: 25px 20px;
+        gap: 15px;
+    }
+    
+    .descriptionbox-description p {
+        font-size: 14px;
+        margin: 0 0 15px 0;
+    }
+    
+    .review-item {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .descriptionbox {
+        margin: 30px auto;
+        padding: 0 10px;
+    }
+    
+    .descriptionbox-nav-box {
+        height: 45px;
+        font-size: 13px;
+        min-width: 100px;
+    }
+    
+    .descriptionbox-description {
+        padding: 20px 15px;
+        gap: 12px;
+    }
+    
+    .descriptionbox-description p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    
+    .review-item {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .descriptionbox-navigator {
+        flex-direction: column;
+    }
+    
+    .descriptionbox-nav-box {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .descriptionbox-description {
+        padding: 15px 10px;
+    }
+}
 .descriptionbox-navigator{
     display: flex;
     border-bottom: 1px solid #d0d0d0;
