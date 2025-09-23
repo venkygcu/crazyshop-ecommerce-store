@@ -14,7 +14,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://venkygcu.github.io/eshwar-ecommerce-store",
+  "homepage": "https://venkygcu.github.io/crazyshop-ecommerce-store",
   "scripts": {
     "start": "cross-env PORT=3001 react-scripts start",
     "start:dev": "cross-env NODE_ENV=development PORT=3001 react-scripts start",
