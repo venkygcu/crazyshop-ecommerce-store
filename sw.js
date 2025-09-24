@@ -1,5 +1,5 @@
 // Service Worker for Mobile Performance
-const CACHE_NAME = 'eshwar-ecommerce-v1';
+const CACHE_NAME = 'crazyshop-ecommerce-v1';
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
