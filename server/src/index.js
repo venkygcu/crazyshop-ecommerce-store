@@ -27,7 +27,8 @@ app.use(cors({
 app.use(express.json());
 
 // SQLite setup
-const dbPath = path.join(__dirname, '..', 'data.db'); // stored in server/data.db
+// Use persistent path if provided (e.g., Render disk), fallback to local file
+const dbPath = process.env.DB_PATH ? process.env.DB_PATH : path.join(__dirname, '..', 'data.db'); // stored in server/data.db
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
