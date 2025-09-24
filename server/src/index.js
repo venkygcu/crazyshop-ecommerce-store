@@ -1,30 +1,33 @@
-nk require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+const Razorpay = require('razorpay');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const ROOT_DIR = path.join(__dirname, '..', '..');
+const FRONTEND_DIR = path.join(ROOT_DIR, 'build');
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 // CORS
 app.use(cors({
-  origin: [
-    'http://localhost:3001',
-    'http://localhost:3000',
-    'https://venkygcu.github.io',
-    'https://venkygcu.github.io/eshwar-ecommerce-store'
-  ],
+  origin: true,
   credentials: true,
 }));
 
 app.use(express.json());
 
 // SQLite setup
-const dbPath = path.join(__dirname, '..', 'data.db');
+const dbPath = path.join(__dirname, '..', 'data.db'); // stored in server/data.db
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
@@ -52,6 +55,16 @@ db.serialize(() => {
     email TEXT NOT NULL,
     message TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS orders (
+    id TEXT PRIMARY KEY,
+    amount REAL NOT NULL,
+    currency TEXT NOT NULL,
+    status TEXT DEFAULT 'created',
+    user_id INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id)
   )`);
 });
 
@@ -82,6 +95,9 @@ function onlyAdmin(req, res, next) {
 
 // Routes
 app.get('/api/v1/health', (req, res) => res.json({ ok: true }));
+
+// Serve static React build
+app.use(express.static(FRONTEND_DIR));
 
 app.post('/api/v1/auth/signup', (req, res) => {
   const { username, email, password } = req.body;
@@ -148,6 +164,37 @@ app.get('/api/v1/support/messages', auth, onlyAdmin, (req, res) => {
   });
 });
 
+// Payment
+app.post('/api/v1/payment/create-order', auth, (req, res) => {
+  const { amount } = req.body;
+  if (!amount || typeof amount !== 'number' || amount <= 0) return res.status(400).json({ message: 'Invalid amount' });
+  const options = {
+    amount: amount * 100, // amount in paisa
+    currency: 'INR',
+    receipt: `receipt_${Date.now()}`,
+  };
+  razorpay.orders.create(options, (err, order) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Failed to create order' });
+    }
+    // Save order to db
+    const stmt = db.prepare('INSERT INTO orders (id, amount, currency, user_id) VALUES (?, ?, ?, ?)');
+    stmt.run([order.id, amount, 'INR', req.user.id], function (dbErr) {
+      if (dbErr) {
+        console.error(dbErr);
+        return res.status(500).json({ message: 'Failed to save order' });
+      }
+      return res.json(order);
+    });
+  });
+});
+
+// Fallback to index.html for React Router
+app.get('*', (req, res) => {
+  res.sendFile(path.join(FRONTEND_DIR, 'index.html'));
+});
+
 app.listen(PORT, () => {
-  console.log(`API server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

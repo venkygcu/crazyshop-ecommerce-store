@@ -25,7 +25,7 @@ jobs:
       - name: Build
         env:
           REACT_APP_ENV: production
-          REACT_APP_API_BASE_URL: https://api.eshwar-ecommerce-store.com/api
+          REACT_APP_API_BASE_URL: https://api.crazyshop-ecommerce-store.com/api
           REACT_APP_API_VERSION: v1
           REACT_APP_ENABLE_MOCK_DATA: false
         run: npm run build

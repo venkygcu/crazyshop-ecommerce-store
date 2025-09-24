@@ -23,7 +23,9 @@ const LoginSignup = () => {
     try {
       if (ENABLE_MOCK) {
         await new Promise(res => setTimeout(res, 500));
+        const mockUser = { username, email };
         localStorage.setItem('authToken', 'mock-signup-token');
+        localStorage.setItem('authUser', JSON.stringify(mockUser));
         window.dispatchEvent(new Event('auth-changed'));
         setSuccess('Signup successful. Redirecting...');
         navigate('/');
@@ -35,7 +37,9 @@ const LoginSignup = () => {
         password,
       });
       const token = res?.data?.token;
+      const user = res?.data?.user;
       if (token) localStorage.setItem('authToken', token);
+      if (user) localStorage.setItem('authUser', JSON.stringify(user));
       window.dispatchEvent(new Event('auth-changed'));
       setSuccess('Signup successful. Redirecting...');
       navigate('/');
@@ -55,7 +59,9 @@ const LoginSignup = () => {
     try {
       if (ENABLE_MOCK) {
         await new Promise(res => setTimeout(res, 500));
+        const mockUser = { email };
         localStorage.setItem('authToken', 'mock-login-token');
+        localStorage.setItem('authUser', JSON.stringify(mockUser));
         window.dispatchEvent(new Event('auth-changed'));
         setSuccess('Login successful. Redirecting...');
         navigate('/');
@@ -66,7 +72,9 @@ const LoginSignup = () => {
         password,
       });
       const token = res?.data?.token;
+      const user = res?.data?.user;
       if (token) localStorage.setItem('authToken', token);
+      if (user) localStorage.setItem('authUser', JSON.stringify(user));
       window.dispatchEvent(new Event('auth-changed'));
       setSuccess('Login successful. Redirecting...');
       navigate('/');

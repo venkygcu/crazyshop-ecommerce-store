@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_VERSION = process.env.REACT_APP_API_VERSION || 'v1';
 const API_BASE = process.env.REACT_APP_API_BASE_URL
   ? `${process.env.REACT_APP_API_BASE_URL}/${API_VERSION}`
-  : '/api';
+  : `/api/${API_VERSION}`;
 
 const client = axios.create({
   baseURL: API_BASE,

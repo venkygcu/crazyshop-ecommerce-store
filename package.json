@@ -8,29 +8,24 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
+    "razorpay": "^2.9.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://venkygcu.github.io/crazyshop-ecommerce-store",
+  "homepage": ".",
   "scripts": {
-    "start": "cross-env PORT=3001 react-scripts start",
-    "start:dev": "cross-env NODE_ENV=development PORT=3001 react-scripts start",
-    "start:prod": "cross-env NODE_ENV=production PORT=3001 react-scripts start",
+    "start": "node server/src/index.js",
+    "dev": "concurrently --kill-others-on-fail --raw -c \"blue,green\" -n \"server,client\" -s \"true\" \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cross-env PORT=5000 node server/src/index.js",
+    "dev:client": "cross-env PORT=3001 react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "cross-env NODE_ENV=development react-scripts build",
-    "build:prod": "cross-env NODE_ENV=production react-scripts build",
+    "postbuild": "node -e \"require('fs').existsSync('server') && require('fs').existsSync('build') ? console.log('Build ready') : process.exit(1)\"",
     "test": "react-scripts test",
-    "test:coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "serve": "serve -s build -l 3001",
-    "docker:build": "docker build -t eshwar-ecommerce-store .",
-    "docker:run": "docker run -p 3001:3001 eshwar-ecommerce-store",
-    "docker:dev": "docker-compose up --build"
+    "postinstall": "npm install --prefix server"
   },
   "eslintConfig": {
     "extends": [
@@ -51,12 +46,13 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0",
+    "concurrently": "^9.2.1",
     "cross-env": "^7.0.3",
+    "gh-pages": "^6.3.0",
     "serve": "^14.2.1"
   },
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=18.0.0",
     "npm": ">=8.0.0"
   }
 }

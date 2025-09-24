@@ -24,7 +24,7 @@ import { ShopContext } from './Context/ShopContext';
 const Company = () => (
   <div style={{ maxWidth: 960, margin: '40px auto', padding: 20 }}>
     <h1>Company</h1>
-    <p>Welcome to Eshwar's E-commerce. We focus on quality products and excellent customer experience.</p>
+    <p>Welcome to CRAZYSHOPPING. We focus on quality products and excellent customer experience.</p>
   </div>
 );
 

@@ -28,7 +28,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('authUser');
     setIsAuthed(false);
+    setAuthUser(null);
+    window.dispatchEvent(new Event('auth-changed'));
     navigate('/login');
   };
 
@@ -44,8 +47,8 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className="nav-logo">  
-        <img src={logo} alt="" />
-        <p>Eshwar's E-commerce</p>
+        <img src={logo} alt="CRAZYSHOPPING logo" />
+        <p>CRAZYSHOPPING</p>
       </div>
       
       {/* Mobile Menu Toggle */}
